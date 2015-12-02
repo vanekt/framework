@@ -1,5 +1,12 @@
 {
+    "name": "root/framework",
+    "authors": [
+        {
+            "name": "Ivan Tkachenko",
+            "email": "ivan.tkachenko@starcode.ru"
+        }
+    ],
     "require": {
-        "symfony/class-loader": "^3.0"
+        "symfony/http-foundation": "^3.0"
     }
 }

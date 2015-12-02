@@ -4,28 +4,28 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4fbf5c0ca7473c53f014c3724e44371c",
-    "content-hash": "f4d126cb443815a7e69bc8d2587388f1",
+    "hash": "31a0856f32943400f9183e0d61b77b20",
+    "content-hash": "a490ce0cab9074b983ef343fd73e2630",
     "packages": [
         {
-            "name": "symfony/class-loader",
+            "name": "symfony/http-foundation",
             "version": "v3.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/class-loader.git",
-                "reference": "05ad69969796955102e42b12d13ad73fc6dadaaf"
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "1563f784900958afdb584ca82a072c578ed8a929"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/class-loader/zipball/05ad69969796955102e42b12d13ad73fc6dadaaf",
-                "reference": "05ad69969796955102e42b12d13ad73fc6dadaaf",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/1563f784900958afdb584ca82a072c578ed8a929",
+                "reference": "1563f784900958afdb584ca82a072c578ed8a929",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9"
             },
             "require-dev": {
-                "symfony/finder": "~2.8|~3.0"
+                "symfony/expression-language": "~2.8|~3.0"
             },
             "type": "library",
             "extra": {
@@ -35,7 +35,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Component\\ClassLoader\\": ""
+                    "Symfony\\Component\\HttpFoundation\\": ""
                 },
                 "exclude-from-classmap": [
                     "/Tests/"
@@ -55,9 +55,9 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony ClassLoader Component",
+            "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-11-26 07:02:09"
+            "time": "2015-11-27 14:30:17"
         }
     ],
     "packages-dev": [],
