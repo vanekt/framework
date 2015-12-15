@@ -9,13 +9,14 @@ $request = Request::createFromGlobals();
 $response = new Response();
 
 $map = array(
-    '/hello' => __DIR__ . '/../src/pages/hello.php',
+    '/hello' => 'hello',
 );
 
 $path = $request->getPathInfo();
 if (isset($map[$path])) {
     ob_start();
-    require $map[$path];
+    extract($request->query->all(), EXTR_SKIP);
+    include sprintf(__DIR__ . '/../src/pages/%s.php', $map[$path]);
     $response->setContent(ob_get_clean());
 } else {
     $response
