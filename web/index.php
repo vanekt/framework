@@ -10,7 +10,7 @@ use Symfony\Component\Routing;
 
 $request = Request::createFromGlobals();
 
-$routes = include __DIR__ . '/../src/routes.php';
+$routes = require_once __DIR__ . '/../src/routes.php';
 
 $context = new Routing\RequestContext();
 $context->fromRequest($request);
@@ -20,7 +20,7 @@ $urlGenerator = new Routing\Generator\UrlGenerator($routes, $context);
 try {
     ob_start();
     extract($matcher->match($request->getPathInfo()), EXTR_SKIP);
-    include sprintf(__DIR__ . '/../src/pages/%s.php', $_route);
+    require sprintf(__DIR__ . '/../src/pages/%s.php', $_route);
     $response = new Response(ob_get_clean());
 } catch (Routing\Exception\ResourceNotFoundException $e) {
     $response = new Response('Not Found', 404);
