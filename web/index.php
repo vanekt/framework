@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Routing;
 use Symfony\Component\HttpKernel;
+use Symfony\Component\HttpKernel\HttpCache\HttpCache;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 use Simplex;
 
 $request = Request::createFromGlobals();
@@ -23,8 +25,9 @@ $dispatcher = new EventDispatcher();
 $dispatcher->addSubscriber(new Simplex\GoogleListener());
 
 $framework = new Simplex\Framework($matcher, $resolver, $dispatcher);
-$response = $framework->handle($request);
+$framework = new HttpCache($framework, new Store(__DIR__ . '/../cache'));
 
+$response = $framework->handle($request);
 $response->send();
 
 function render_template(Request $request)

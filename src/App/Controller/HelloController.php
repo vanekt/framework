@@ -28,6 +28,8 @@ class HelloController
 
     public function fooAction()
     {
-        return new Response('foo');
+        $response = new Response('cached foo (10 sec)');
+        $response->setTtl(10);
+        return $response;
     }
 }
