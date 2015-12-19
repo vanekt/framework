@@ -28,7 +28,7 @@ class HelloController
 
     public function fooAction()
     {
-        $response = new Response('cached foo (10 sec)');
+        $response = new Response('cached response (10 sec): ' . time());
         $response->setTtl(10);
         return $response;
     }
