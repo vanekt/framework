@@ -9,6 +9,32 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing;
 use Symfony\Component\HttpKernel;
 
+class HelloController
+{
+    public function indexAction(Request $request)
+    {
+        return render_template($request);
+    }
+
+    public function byeAction(Request $request)
+    {
+        // $foo will be available in the template
+        $request->attributes->set('foo', 'bar');
+
+        $response = render_template($request);
+
+        // change some header
+        $response->headers->set('Content-Type', 'text/plain');
+
+        return $response;
+    }
+
+    public function fooAction()
+    {
+        return new Response('foo');
+    }
+}
+
 function render_template(Request $request)
 {
     extract($request->attributes->all(), EXTR_SKIP);
