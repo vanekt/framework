@@ -6,6 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
  
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Routing;
 use Symfony\Component\HttpKernel;
 use Simplex;
@@ -18,7 +19,10 @@ $context->fromRequest($request);
 $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
 $resolver = new HttpKernel\Controller\ControllerResolver();
 
-$framework = new Simplex\Framework($matcher, $resolver);
+$dispatcher = new EventDispatcher();
+$dispatcher->addSubscriber(new Simplex\GoogleListener());
+
+$framework = new Simplex\Framework($matcher, $resolver, $dispatcher);
 $response = $framework->handle($request);
 
 $response->send();
