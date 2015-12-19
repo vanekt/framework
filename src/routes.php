@@ -4,8 +4,13 @@ use Symfony\Component\Routing;
 
 $routes = new Routing\RouteCollection();
 
-$routes->add('hello', new Routing\Route('hello/{name}', array(
+$routes->add('index', new Routing\Route('/', array(
     '_controller' => 'HelloController::indexAction',
+)));
+
+$routes->add('hello', new Routing\Route('hello/{name}', array(
+    '_controller' => 'HelloController::helloAction',
+    'name' => 'World',
 )));
 
 $routes->add('bye', new Routing\Route('bye', array(

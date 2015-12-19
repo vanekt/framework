@@ -11,7 +11,12 @@ use Symfony\Component\HttpKernel;
 
 class HelloController
 {
-    public function indexAction(Request $request)
+    public function indexAction()
+    {
+        return new Response('index');
+    }
+
+    public function helloAction(Request $request)
     {
         return render_template($request);
     }
