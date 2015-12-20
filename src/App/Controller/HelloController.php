@@ -14,7 +14,7 @@ class HelloController
 
     public function helloAction(Request $request)
     {
-        return render_template($request);
+        return $this->renderTemplate($request);
     }
 
     public function byeAction(Request $request)
@@ -27,5 +27,14 @@ class HelloController
         $response = new Response('cached response (10 sec): ' . time());
         $response->setTtl(10);
         return $response;
+    }
+
+    public function renderTemplate(Request $request)
+    {
+        extract($request->attributes->all(), EXTR_SKIP);
+        ob_start();
+        require sprintf(__DIR__ . '/../../../src/pages/%s.php', $_route);
+
+        return new Response(ob_get_clean());
     }
 }
