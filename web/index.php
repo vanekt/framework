@@ -6,9 +6,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
  
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Routing;
 use Symfony\Component\HttpKernel;
+use Symfony\Component\HttpKernel\EventListener\RouterListener;
+use Symfony\Component\HttpKernel\EventListener\ExceptionListener;
+use Symfony\Component\HttpKernel\EventListener\StreamedResponseListener;
 use Symfony\Component\HttpKernel\HttpCache\HttpCache;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 use Simplex;
@@ -17,14 +21,19 @@ $request = Request::createFromGlobals();
 $routes = require_once __DIR__ . '/../src/routes.php';
 
 $context = new Routing\RequestContext();
-$context->fromRequest($request);
 $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
 $resolver = new HttpKernel\Controller\ControllerResolver();
+$requestStack = new RequestStack();
 
 $dispatcher = new EventDispatcher();
-$dispatcher->addSubscriber(new Simplex\GoogleListener());
+$dispatcher->addSubscriber(new RouterListener($matcher, $requestStack));
 
-$framework = new Simplex\Framework($matcher, $resolver, $dispatcher);
+$listener = new ExceptionListener('App\\Controller\\ErrorController::exceptionAction');
+$dispatcher->addSubscriber($listener);
+
+$dispatcher->addSubscriber(new Simplex\StringResponseListener());
+
+$framework = new Simplex\Framework($dispatcher, $resolver, $requestStack);
 $framework = new HttpCache($framework, new Store(__DIR__ . '/../cache'));
 
 $response = $framework->handle($request);

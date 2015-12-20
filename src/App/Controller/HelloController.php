@@ -19,11 +19,7 @@ class HelloController
 
     public function byeAction(Request $request)
     {
-        $request->attributes->set('foo', 'bar');
-        $response = render_template($request);
-        $response->headers->set('Content-Type', 'text/plain');
-
-        return $response;
+        return 'bye';
     }
 
     public function fooAction()
